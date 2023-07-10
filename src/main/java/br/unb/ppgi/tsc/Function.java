@@ -35,17 +35,18 @@ public class Function {
         return executar(request, true);
     }
 
-    private HttpResponseMessage executar(HttpRequestMessage<Optional<RequisicaoDeAlinhamento>> request, boolean apenasScore) {
+    private HttpResponseMessage executar(HttpRequestMessage<Optional<RequisicaoDeAlinhamento>> request,
+            boolean apenasScore) {
         return request.getBody()
-            .map(requisicao -> executar(requisicao, apenasScore))
-            .map(alinhamento -> montarResposta(alinhamento, request))
-            .orElse(request.createResponseBuilder(HttpStatus.BAD_REQUEST).build());
+                .map(requisicao -> executar(requisicao, apenasScore))
+                .map(alinhamento -> montarResposta(alinhamento, request))
+                .orElse(request.createResponseBuilder(HttpStatus.BAD_REQUEST).build());
     }
 
     private HttpResponseMessage montarResposta(Alinhamento alinhamento, HttpRequestMessage<?> request) {
         return request.createResponseBuilder(HttpStatus.OK)
-            .body(alinhamento)
-            .build();
+                .body(alinhamento)
+                .build();
     }
 
     private Alinhamento executar(RequisicaoDeAlinhamento requisicaoDeAlinhamento, boolean apenasScore) {
